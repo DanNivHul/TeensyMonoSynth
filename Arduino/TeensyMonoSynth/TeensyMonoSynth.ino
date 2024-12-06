@@ -26,6 +26,7 @@
 // todo - white noise as lfo source
 // todo - lfo option where each note on triggers a new random value and sustains it until the next note on 
 // todo - send midi over usb to update web programmer
+// todo - logical operator distortion - type and crossfade distortion amount
 
 
 // ====================================================================================================
