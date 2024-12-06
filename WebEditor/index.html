@@ -1,0 +1,257 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>MIDI Configuration</title>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: max-content max-content max-content;
+      column-gap: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div>
+    <span id="connectionStatus">No Device Connected</span>
+  </div>
+
+  <div class="buttonContainer">
+    <hr>
+    <button id="buttonUpload" onclick="uploadConfig()">Upload Config To Controller</button>
+    <button id="buttonDownload" onclick="requestConfig()">Download Config From Controller</button>
+    <button id="buttonSearch" onclick="searchMIDI()">Search For MIDI Controller</button>
+    <hr>
+  </div>
+
+  <div id="aaa"></div>
+
+  <script type="text/javascript" src="./js/midi.js"></script>
+
+  <script>
+    const things = [{
+        heading: "Oscillators",
+        inputs: [{
+            name: "Waveshapes",
+            type: "select",
+            options: [{
+                text: "Saw / Saw",
+                value: 0
+              },
+              {
+                text: "Saw / Pulse",
+                value: 64
+              },
+              {
+                text: "Pulse / Pulse",
+                value: 127
+              }
+            ],
+            cc: 10
+          },
+          {
+            name: "Detune",
+            type: "range",
+            cc: 11,
+            spanId: "detune-value"
+          }
+        ]
+      },
+      {
+        heading: "Mix",
+        inputs: [{
+            name: "A / B",
+            type: "range",
+            cc: 20,
+            spanId: "osc-mix-value"
+          },
+          {
+            name: "Sub Level",
+            type: "range",
+            cc: 21,
+            spanId: "sub-level-value"
+          },
+          {
+            name: "Noise Level",
+            type: "range",
+            cc: 22,
+            spanId: "noise-level-value"
+          }
+        ]
+      },
+      {
+        heading: "Filter",
+        inputs: [{
+            name: "Cutoff",
+            type: "range",
+            cc: 30,
+            spanId: "filter-cutoff-value"
+          },
+          {
+            name: "Resonance",
+            type: "range",
+            cc: 31,
+            spanId: "filter-resonance-value"
+          },
+          {
+            name: "EG Depth",
+            type: "range",
+            cc: 32,
+            spanId: "filter-eg-depth-value"
+          }, ,
+          {
+            name: "LFO Depth",
+            type: "range",
+            cc: 33,
+            spanId: "filter-lfo-depth-value"
+          }
+        ]
+      },
+      {
+        heading: "LFO",
+        inputs: [{
+            name: "Rate",
+            type: "range",
+            cc: 40,
+            spanId: "lfo-rate-value"
+          },
+          {
+            name: "Delay",
+            type: "range",
+            cc: 41,
+            spanId: "lfo-delay-value"
+          },
+          {
+            name: "Waveshapes",
+            type: "select",
+            options: [{
+                text: "Sine",
+                value: 0
+              },
+              {
+                text: "Triangle",
+                value: 30
+              },
+              {
+                text: "Saw",
+                value: 50
+              },
+              {
+                text: "Reverse Saw",
+                value: 70
+              },
+              {
+                text: "Square",
+                value: 90
+              },
+              {
+                text: "Sample and Hold",
+                value: 110
+              },
+            ],
+            cc: 42
+          },
+        ]
+      },
+      {
+        heading: "Envelope",
+        inputs: [{
+            name: "Release",
+            type: "range",
+            cc: 50,
+            spanId: "release-value"
+          },
+          {
+            name: "Decay",
+            type: "range",
+            cc: 51,
+            spanId: "decay-value"
+          }
+        ]
+      }
+    ];
+
+    const mainDiv = document.getElementById("aaa");
+
+    things.forEach((thing) => {
+      const heading = document.createElement("h1");
+      heading.innerHTML = thing.heading;
+
+      mainDiv.appendChild(heading);
+
+      const inputDiv = document.createElement("div");
+      inputDiv.classList.add("grid-container");
+      mainDiv.appendChild(inputDiv);
+
+      thing.inputs.forEach((input) => {
+        const labelElement = document.createElement("label");
+        labelElement.innerHTML = input.name;
+        inputDiv.appendChild(labelElement);
+
+        if (input.type.localeCompare("range") == 0) {
+          const inputElement = document.createElement("input");
+          inputElement.type = "range";
+          inputElement.min = "0";
+          inputElement.max = "127";
+          inputElement.classList.add("input-listener");
+          inputElement.addEventListener("input", function() {
+            document.getElementById(input.spanId).innerHTML = this.value;
+            sendControlChange(input.cc, this.value);
+          });
+          inputDiv.appendChild(inputElement);
+
+        } else if (input.type.localeCompare("select") == 0) {
+          const selectElement = document.createElement("select");
+          selectElement.classList.add("change-listener");
+          selectElement.addEventListener("change", function() {
+            sendControlChange(input.cc, this.value);
+          });
+
+          //Create and append the options
+          input.options.forEach((option) => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option.value;
+            optionElement.text = option.text;
+            selectElement.appendChild(optionElement);
+          });
+
+          inputDiv.appendChild(selectElement);
+        }
+
+        const spanElement = document.createElement("span");
+        spanElement.id = input.spanId;
+        inputDiv.appendChild(spanElement);
+      });
+    });
+
+
+    function sendAll() {
+      const inputListenerElements = document.getElementsByClassName("input-listener");
+      const inputEvent = new Event("input", {
+
+      });
+      for (element of inputListenerElements) {
+        element.dispatchEvent(inputEvent);
+      }
+
+      const changeListenerElements = document.getElementsByClassName("change-listener");
+      const changeEvent = new Event("change", {
+
+      });
+      for (element of changeListenerElements) {
+        element.dispatchEvent(changeEvent);
+      }
+    }
+
+    sendAll();
+  </script>
+
+
+
+
+</body>
+
+</html>
