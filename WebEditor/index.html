@@ -133,12 +133,26 @@
             type: "range",
             cc: 32,
             spanId: "filter-eg-depth-value"
-          }, ,
+          },
           {
             name: "LFO Depth",
             type: "range",
             cc: 33,
             spanId: "filter-lfo-depth-value"
+          },
+          {
+            name: "Type",
+            type: "select",
+            options: [{
+                text: "Low Pass",
+                value: 0
+              },
+              {
+                text: "Band Pass",
+                value: 127
+              }
+            ],
+            cc: 34
           }
         ]
       },

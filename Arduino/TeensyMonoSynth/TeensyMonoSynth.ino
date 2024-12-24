@@ -6,10 +6,10 @@
 // todo - envelope to pulse width. cc for depth
 // todo - lfo to osc pitches
 // todo - expose full adsr parameters to cc. filter and amp share same settings
-// todo - add bandpass option for filter
 // todo - set volume to 1
 // todo - sub waveform select (square or 25% pulse?)
-// todo - option for legato mode (retrigger envelopes vs don't)
+// done - add bandpass option for filter
+// done - option for legato mode (retrigger envelopes vs don't)
 // done - better note on / off. at the moment. store previous notes in buffer and return to them if note off not received
 // done - glide
 
@@ -84,9 +84,10 @@ AudioSynthWaveformModulated osc_B;   //xy=2019.6671142578125,526.666748046875
 AudioSynthNoisePink      pink_noise;          //xy=2019.9334754943848,745.9333267211914
 AudioMixer4              mixer;         //xy=2319.000259399414,580.3332901000977
 AudioFilterStateVariable filter;        //xy=2503.9999084472656,945.3333015441895
-AudioEffectEnvelope      envelope_amp;      //xy=2694.99991607666,943.3332710266113
-AudioAmplifier           amp_output;           //xy=2874.9331398010254,942.9333372116089
-AudioOutputI2S           i2s1;           //xy=3034.00004196167,942.333270072937
+AudioMixer4              mixer_filter_output;         //xy=2706.599994659424,952.5334053039551
+AudioEffectEnvelope      envelope_amp;      //xy=2926.0003967285156,951.3333930969238
+AudioAmplifier           amp_output;           //xy=3105.933620452881,950.9334592819214
+AudioOutputI2S           i2s1;           //xy=3265.0005226135254,950.3333921432495
 AudioConnection          patchCord1(lfo, envelope_lfo_delay);
 AudioConnection          patchCord2(dc_osc_sub_freq_offset, 0, mixer_osc_sub_freq, 1);
 AudioConnection          patchCord3(dc_osc_freq, 0, osc_A, 0);
@@ -108,12 +109,16 @@ AudioConnection          patchCord18(osc_sub, 0, mixer, 2);
 AudioConnection          patchCord19(osc_B, 0, mixer, 1);
 AudioConnection          patchCord20(pink_noise, 0, mixer, 3);
 AudioConnection          patchCord21(mixer, 0, filter, 0);
-AudioConnection          patchCord22(filter, 0, envelope_amp, 0);
-AudioConnection          patchCord23(envelope_amp, amp_output);
-AudioConnection          patchCord24(amp_output, 0, i2s1, 0);
-AudioConnection          patchCord25(amp_output, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=2774.9998664855957,1006.3332748413086
+AudioConnection          patchCord22(filter, 0, mixer_filter_output, 0);
+AudioConnection          patchCord23(filter, 1, mixer_filter_output, 1);
+AudioConnection          patchCord24(filter, 2, mixer_filter_output, 2);
+AudioConnection          patchCord25(mixer_filter_output, envelope_amp);
+AudioConnection          patchCord26(envelope_amp, amp_output);
+AudioConnection          patchCord27(amp_output, 0, i2s1, 0);
+AudioConnection          patchCord28(amp_output, 0, i2s1, 1);
+AudioControlSGTL5000     sgtl5000_1;     //xy=3006.000347137451,1014.3333969116211
 // GUItool: end automatically generated code
+
 
 
 
@@ -227,6 +232,12 @@ void setup() {
   envelope_filter.sustain(0.0);
   envelope_filter.release(0.0);
 
+  // FILTER TYPE - LOW PASS / BAND PASS
+  mixer_filter_output.gain(0, 1.0); // Low pass
+  mixer_filter_output.gain(1, 0.0); // Band pass
+  mixer_filter_output.gain(2, 0.0); // Not used
+  mixer_filter_output.gain(3, 0.0); // Not used
+
   //FILTER MOD
   dc_filter_envelope_depth.amplitude(0.0);
   amp_filter_lfo_depth.gain(0.0);
@@ -270,7 +281,7 @@ void loop() {
 void myNoteOn(byte channel, byte note, byte velocity) {
   Serial.println("Note on");
 
-  // Find the first unused slot in the note buffer
+  
   int8_t new_note_index = -1;
   for (int8_t i = 0; i < HELD_NOTES_COUNT; i++) {
     // If new note is already being held - Ignore new note. Do not do anything. Return.
@@ -278,6 +289,7 @@ void myNoteOn(byte channel, byte note, byte velocity) {
       return;
     }
 
+    // Find the first unused slot in the note buffer
     if (held_notes[i] == 0 && new_note_index == -1) {
       new_note_index = i;
     }
@@ -468,6 +480,19 @@ void myControlChange(byte channel, byte control, byte value) {
     case 33: // Filter lfo depth 
       filter_lfo_depth_cc_value = value;
       updateFilterMods();
+      break;
+
+    case 34: // Filter type - low pass / band pass 
+      if (value < 64) {
+        // Use low pass filter
+        mixer_filter_output.gain(0, 1.0); // Low pass
+        mixer_filter_output.gain(1, 0.0); // Band pass
+      } else {
+        // Use band pass filter
+        mixer_filter_output.gain(0, 0.0); // Low pass
+        mixer_filter_output.gain(1, 1.0); // Band pass
+      }
+        
       break;
 
     case 40: // Lfo rate
