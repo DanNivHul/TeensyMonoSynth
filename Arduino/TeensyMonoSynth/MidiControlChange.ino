@@ -23,7 +23,7 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 11: { // Osc B - Detune
-        detune_amount = value / 127.0 * 0.0045 + 0.0001; // gives a range from just above 0 to just above +0.5 semitone
+        detune_amount = value / 127.0 * 0.01 - 0.005; // gives a range from a little below -0.5 semitone to a little above +0.5 semitone
         updateDetune();
       }
       break;
