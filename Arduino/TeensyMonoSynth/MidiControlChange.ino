@@ -23,8 +23,8 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 11: { // Osc B - Detune
-        float detune_level = value / 127.0 * 0.008 - 0.004; // gives a range of just less than -0.5 semitone to +0.5 semitone
-        dc_detune.amplitude(detune_level);
+        detune_amount = value / 127.0 * 0.01 - 0.005; // gives a range from a little below -0.5 semitone to a little above +0.5 semitone
+        updateDetune();
       }
       break;
 
@@ -53,6 +53,21 @@ void myControlChange(byte channel, byte control, byte value) {
 
     case 16: { // Osc lfo depth
         amp_lfo_osc_depth.gain(POWER[value] * MAX_OSC_LFO_AMPLITUDE);
+      }
+      break;
+
+    case 17: { // Osc B semitone
+        // Gives a range from -12 to +12 semitones
+        int8_t num_semitones;
+        if (value < 60) {
+            num_semitones = value / 5 - 12;    
+        } else if (value > 67) { 
+            num_semitones = (value - 3) / 5 - 12;
+        } else {
+            num_semitones = 0;
+        }
+        semitone_offset = num_semitones * 0.0083333333; // One semitone in volts
+        updateDetune();
       }
       break;
 
@@ -157,4 +172,8 @@ void updateFilterMods() {
     dc_filter_envelope_depth.amplitude(filter_envelope_depth_cc_value / (float) sum); // todo - better formula for mapping midi values?
     amp_filter_lfo_depth.gain(filter_lfo_depth_cc_value / (float) sum);                   // todo - better formula for mapping midi values?
   }
+}
+
+void updateDetune() {
+  dc_detune.amplitude(detune_amount + semitone_offset);
 }

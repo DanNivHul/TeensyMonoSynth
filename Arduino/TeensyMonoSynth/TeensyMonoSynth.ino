@@ -59,7 +59,7 @@ void setup() {
 
   dc_osc_B_pulse_width.amplitude(0.75);
 
-  dc_detune.amplitude(0.001);
+  dc_detune.amplitude(detune_amount);
 
   mixer_osc_B_freq.gain(0, 1.0);  // Note frequency
   mixer_osc_B_freq.gain(1, 1.0);  // Lfo
