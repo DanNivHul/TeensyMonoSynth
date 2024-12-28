@@ -33,6 +33,7 @@ void myNoteOff(byte channel, byte note, byte velocity) {
       // If no other note is being held - Trigger envelope note off.
       envelope_amp.noteOff();
       envelope_filter.noteOff();
+      envelope.noteOff();
     }
   }
 

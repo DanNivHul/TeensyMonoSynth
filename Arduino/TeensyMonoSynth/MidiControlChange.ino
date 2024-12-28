@@ -52,7 +52,7 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 16: { // Osc lfo depth
-        amp_lfo_osc_depth.gain(POWER[value] * MAX_OSC_LFO_AMPLITUDE);
+        amp_osc_freq_lfo_depth.gain(POWER[value] * MAX_OSC_LFO_AMPLITUDE);
       }
       break;
 
@@ -68,6 +68,11 @@ void myControlChange(byte channel, byte control, byte value) {
         }
         semitone_offset = num_semitones * 0.0083333333; // One semitone in volts
         updateDetune();
+      }
+      break;
+
+    case 18: { // Osc freq envelope depth
+        amp_osc_freq_envelope_depth.gain(POWER[value] * MAX_OSC_ENVELOPE_DEPTH);
       }
       break;
 
@@ -155,6 +160,22 @@ void myControlChange(byte channel, byte control, byte value) {
 
     case 51: // Filter decay time 
       envelope_filter.decay(3000 * (value / 127.0));  // todo - better formula for mapping midi values
+      break;   
+
+    case 52: // Envelope - Attack time 
+      envelope.attack(ENV_TIMES_MS[value]);  // todo - better formula for mapping midi values
+      break;   
+
+    case 53: // Envelope - Decay time
+      envelope.decay(ENV_TIMES_MS[value]);  // todo - better formula for mapping midi values
+      break;   
+
+    case 54: // Envelope - Sustain
+      envelope.sustain(value / 127.0);
+      break;   
+
+    case 55: // Envelope - Release time
+      envelope.release(ENV_TIMES_MS[value]);  // todo - better formula for mapping midi values
       break;   
 
     case 60: // Volume

@@ -55,26 +55,22 @@
           {
             name: "Detune",
             type: "range",
-            cc: 11,
-            spanId: "detune-value"
+            cc: 11
           },
           {
             name: "Osc A Pulse Width",
             type: "range",
-            cc: 12,
-            spanId: "osc-a-pulse-width-value"
+            cc: 12
           },
           {
             name: "Osc B Pulse Width",
             type: "range",
-            cc: 13,
-            spanId: "osc-b-pulse-width-value"
+            cc: 13
           },
           {
             name: "Glide Time",
             type: "range",
-            cc: 14,
-            spanId: "glide-time-value"
+            cc: 14
           },
           {
             name: "Legato",
@@ -93,14 +89,17 @@
           {
             name: "LFO Depth",
             type: "range",
-            cc: 16,
-            spanId: "osc-lfo-depth-value"
+            cc: 16
           },
           {
             name: "Semitone",
             type: "range",
-            cc: 17,
-            spanId: "osc-semitone-value"
+            cc: 17
+          },
+          {
+            name: "EG Depth",
+            type: "range",
+            cc: 18
           },
         ]
       },
@@ -109,20 +108,17 @@
         inputs: [{
             name: "A / B",
             type: "range",
-            cc: 20,
-            spanId: "osc-mix-value"
+            cc: 20
           },
           {
             name: "Sub Level",
             type: "range",
-            cc: 21,
-            spanId: "sub-level-value"
+            cc: 21
           },
           {
             name: "Noise Level",
             type: "range",
-            cc: 22,
-            spanId: "noise-level-value"
+            cc: 22
           }
         ]
       },
@@ -131,26 +127,22 @@
         inputs: [{
             name: "Cutoff",
             type: "range",
-            cc: 30,
-            spanId: "filter-cutoff-value"
+            cc: 30
           },
           {
             name: "Resonance",
             type: "range",
-            cc: 31,
-            spanId: "filter-resonance-value"
+            cc: 31
           },
           {
             name: "EG Depth",
             type: "range",
-            cc: 32,
-            spanId: "filter-eg-depth-value"
+            cc: 32
           },
           {
             name: "LFO Depth",
             type: "range",
-            cc: 33,
-            spanId: "filter-lfo-depth-value"
+            cc: 33
           },
           {
             name: "Type",
@@ -173,14 +165,12 @@
         inputs: [{
             name: "Rate",
             type: "range",
-            cc: 40,
-            spanId: "lfo-rate-value"
+            cc: 40
           },
           {
             name: "Delay",
             type: "range",
-            cc: 41,
-            spanId: "lfo-delay-value"
+            cc: 41
           },
           {
             name: "Waveshapes",
@@ -219,15 +209,33 @@
         inputs: [{
             name: "Release",
             type: "range",
-            cc: 50,
-            spanId: "release-value"
+            cc: 50
           },
           {
             name: "Decay",
             type: "range",
-            cc: 51,
-            spanId: "decay-value"
-          }
+            cc: 51
+          },
+          {
+            name: "Attack",
+            type: "range",
+            cc: 52
+          },
+          {
+            name: "Decay",
+            type: "range",
+            cc: 53
+          },
+          {
+            name: "Sustain",
+            type: "range",
+            cc: 54
+          },
+          {
+            name: "Release",
+            type: "range",
+            cc: 55
+          },
         ]
       }
     ];
@@ -256,7 +264,8 @@
           inputElement.max = "127";
           inputElement.classList.add("input-listener");
           inputElement.addEventListener("input", function() {
-            document.getElementById(input.spanId).innerHTML = this.value;
+            let spanId = "cc-" + input.cc + "-value";
+            document.getElementById(spanId).innerHTML = this.value;
             sendControlChange(input.cc, this.value);
           });
           inputDiv.appendChild(inputElement);
@@ -265,6 +274,8 @@
           const selectElement = document.createElement("select");
           selectElement.classList.add("change-listener");
           selectElement.addEventListener("change", function() {
+            let spanId = "cc-" + input.cc + "-value";
+            document.getElementById(spanId).innerHTML = this.value;
             sendControlChange(input.cc, this.value);
           });
 
@@ -280,7 +291,7 @@
         }
 
         const spanElement = document.createElement("span");
-        spanElement.id = input.spanId;
+        spanElement.id = "cc-" + input.cc + "-value";
         inputDiv.appendChild(spanElement);
       });
     });

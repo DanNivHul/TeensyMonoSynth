@@ -5,14 +5,15 @@
 - [ ] lfo to pulse width. cc for depth
 - [ ] envelope to pulse width. cc for depth
 - [ ] expose full adsr parameters to cc. filter and amp share same settings
-- [ ] envelope to osc pitch
 - [ ] set volume to 1
-- [ ] sub waveform select (square or 25% pulse? ... maybe triangle too?)
+- [ ] sub waveform select (square or 25% pulse? ... maybe triangle too?). Possibly -1 and -2 octave down option?
+- [x] change web programmer to not need spanid in data provided
 - [x] add bandpass option for filter
 - [x] lfo to osc pitches
 - [x] option for legato mode (retrigger envelopes vs don't)
 - [x] better note on / off. at the moment. store previous notes in buffer and return to them if note off not received
 - [x] glide
+- [x] envelope to osc pitch
 
 
 ## Medium Priority
