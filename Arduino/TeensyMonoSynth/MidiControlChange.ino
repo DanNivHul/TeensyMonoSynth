@@ -1,10 +1,10 @@
 void myControlChange(byte channel, byte control, byte value) {
-  Serial.print("Channel: ");
-  Serial.print(channel);
-  Serial.print(", cc: ");
-  Serial.print(control);
-  Serial.print(", value: ");
-  Serial.println(value);
+  // Serial.print("Channel: ");
+  // Serial.print(channel);
+  // Serial.print(", cc: ");
+  // Serial.print(control);
+  // Serial.print(", value: ");
+  // Serial.println(value);
 
   switch (control) {
 
@@ -14,10 +14,10 @@ void myControlChange(byte channel, byte control, byte value) {
           osc_B.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
         } else if (value < 87) {
           osc_A.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
-          osc_B.begin(WAVEFORM_BANDLIMIT_PULSE);
+          osc_B.begin(WAVEFORM_BANDLIMIT_SQUARE);
         } else {
-          osc_A.begin(WAVEFORM_BANDLIMIT_SQUARE);
-          osc_B.begin(WAVEFORM_BANDLIMIT_PULSE);
+          osc_A.begin(WAVEFORM_BANDLIMIT_PULSE);
+          osc_B.begin(WAVEFORM_BANDLIMIT_SQUARE);
         }
       } 
       break;
@@ -28,16 +28,18 @@ void myControlChange(byte channel, byte control, byte value) {
       }
       break;
 
-    case 12: { // Osc A - Pulse Width
-    //dc_osc_A_pulse_width
-        // todo 
-        // dc_osc_A_pulse_width.amplitude(detune_level);
-      }
-      break;
-
-    case 13: { // Osc B - Pulse Width
-        // todo
-        // dc_detune.amplitude(detune_level);
+    case 12: { // Osc B semitone
+        // Gives a range from -12 to +12 semitones
+        int8_t num_semitones;
+        if (value < 60) {
+            num_semitones = value / 5 - 12;    
+        } else if (value > 67) { 
+            num_semitones = (value - 3) / 5 - 12;
+        } else {
+            num_semitones = 0;
+        }
+        semitone_offset = num_semitones * 0.0083333333; // One semitone in volts
+        updateDetune();
       }
       break;
 
@@ -53,21 +55,6 @@ void myControlChange(byte channel, byte control, byte value) {
 
     case 16: { // Osc lfo depth
         amp_osc_freq_lfo_depth.gain(POWER[value] * MAX_OSC_LFO_AMPLITUDE);
-      }
-      break;
-
-    case 17: { // Osc B semitone
-        // Gives a range from -12 to +12 semitones
-        int8_t num_semitones;
-        if (value < 60) {
-            num_semitones = value / 5 - 12;    
-        } else if (value > 67) { 
-            num_semitones = (value - 3) / 5 - 12;
-        } else {
-            num_semitones = 0;
-        }
-        semitone_offset = num_semitones * 0.0083333333; // One semitone in volts
-        updateDetune();
       }
       break;
 

@@ -18,7 +18,7 @@ void setupAudio() {
 
   // Oscillator A
   osc_A.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
-  osc_A.amplitude(0.1); // todo - this does not look right
+  osc_A.amplitude(0.1);
   osc_A.frequency(440.0);
   osc_A.frequencyModulation(10.0);
 
@@ -26,7 +26,7 @@ void setupAudio() {
 
   // Oscillator B
   osc_B.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
-  osc_B.amplitude(0.1); // todo - this does not look right
+  osc_B.amplitude(0.1);
   osc_B.frequency(440.0);
   osc_B.frequencyModulation(10.0);
 

@@ -1,19 +1,16 @@
 # Teensy Monosynth To-Do List
 
 ## High Priority
-- [ ] change square to pulse for Osc A and Osc B and add pulse width ccs for both (on second thought, if you have lfo and envelope to pulse width, do you need manual set of pulse width? I guess helpful for testing?)
-- [ ] lfo to pulse width. cc for depth
-- [ ] envelope to pulse width. cc for depth
-- [ ] expose full adsr parameters to cc. filter and amp share same settings
+- [ ] envelope to osc pitch. have it's own rate and depth
 - [ ] set volume to 1
-- [ ] sub waveform select (square or 25% pulse? ... maybe triangle too?). Possibly -1 and -2 octave down option?
+- [x] remove pulse width cc stuff on arduino code and web programmer
+- [x] change pulse to square for Osc A and Osc B
 - [x] change web programmer to not need spanid in data provided
 - [x] add bandpass option for filter
 - [x] lfo to osc pitches
 - [x] option for legato mode (retrigger envelopes vs don't)
 - [x] better note on / off. at the moment. store previous notes in buffer and return to them if note off not received
 - [x] glide
-- [x] envelope to osc pitch
 
 
 ## Medium Priority
@@ -21,6 +18,7 @@
 - [ ] should lfo to osc be bipolar? currently it is unipolar?
 - [ ] fine tune range for lfo to osc. currently goes up to 1 octave, but not sure how useful that is
 - [ ] pitch bend
+- [ ] try supersaw as an oscillator option
 - [ ] mod wheel to either filter cutoff or lfo depth?
 - [ ] note velocity to volume. cc for depth
 - [ ] note velocity to filter cutoff. cc for depth
@@ -36,6 +34,7 @@
 
 
 ## Low Priority
+- [ ] sub waveform select (square... maybe triangle too?). Possibly -1 and -2 octave down option?
 - [ ] option for auto-glide (always glide vs only glide when notes overlap)
 - [ ] finetune lfo rate range. 
 - [ ] option to reset phase of osc when note on event is triggered. cc for that
@@ -47,3 +46,6 @@
 - [ ] midi channel rx. set by web programmer. store and load in eeprom.
 - [ ] poly aftertouch? a
 - [ ] unison option?
+
+## Notes
+- Pulse waveform implementation sucks on Teensy, so stick with square wave
