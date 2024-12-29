@@ -54,7 +54,7 @@ void setupAudio() {
 
   // Oscillator Modulation
   amp_osc_freq_lfo_depth.gain(0.0);
-  dc_osc_freq_env.amplitude(0.0);
+  dc_pitch_env.amplitude(0.0);
 
   // Noise Generator
   pink_noise.amplitude(0.1);

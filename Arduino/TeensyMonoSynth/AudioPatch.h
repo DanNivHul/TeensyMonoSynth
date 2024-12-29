@@ -4,7 +4,7 @@ AudioSynthWaveformDc     dc_pitch_bend;            //xy=1756.4062805175781,978.8
 AudioSynthWaveformDc     dc_osc_freq;    //xy=1786.3998794555664,829.666576385498
 AudioEffectEnvelope      envelope_lfo_delay; //xy=1843.39990234375,1603.6665649414062
 AudioAmplifier           amp_osc_freq_lfo_depth; //xy=1922.3998718261719,1087.6665802001953
-AudioSynthWaveformDc     dc_osc_freq_env;            //xy=1989.4062690734863,1220.8249111175537
+AudioSynthWaveformDc     dc_pitch_env;            //xy=1989.4062690734863,1220.8249111175537
 AudioSynthWaveformDc     dc_filter_envelope_depth; //xy=2280.39990234375,1960.6665649414062
 AudioMixer4              mixer_osc_common_freq;         //xy=2313.4062271118164,1009.8249664306641
 AudioSynthWaveformDc     dc_osc_sub_freq_offset; //xy=2395.3998794555664,1473.6667108535767
@@ -32,7 +32,7 @@ AudioConnection          patchCord3(dc_osc_freq, 0, mixer_osc_common_freq, 0);
 AudioConnection          patchCord4(envelope_lfo_delay, amp_filter_lfo_depth);
 AudioConnection          patchCord5(envelope_lfo_delay, amp_osc_freq_lfo_depth);
 AudioConnection          patchCord6(amp_osc_freq_lfo_depth, 0, mixer_osc_common_freq, 2);
-AudioConnection          patchCord7(dc_osc_freq_env, 0, mixer_osc_common_freq, 3);
+AudioConnection          patchCord7(dc_pitch_env, 0, mixer_osc_common_freq, 3);
 AudioConnection          patchCord8(dc_filter_envelope_depth, envelope_filter);
 AudioConnection          patchCord9(mixer_osc_common_freq, 0, mixer_osc_B_freq, 0);
 AudioConnection          patchCord10(mixer_osc_common_freq, 0, mixer_osc_sub_freq, 0);

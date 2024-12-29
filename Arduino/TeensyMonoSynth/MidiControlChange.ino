@@ -43,12 +43,12 @@ void myControlChange(byte channel, byte control, byte value) {
       }
       break;
 
-    case 14: { // Glide time
-        glide_time_ms = (float) (ENV_TIMES_MS[value] - 1);
+    case 14: { // Glide - enable / disable
+        is_glide_enabled = value < 64;
       }
       break;
 
-    case 15: { // Legato
+    case 15: { // Legato - enable / disable
         is_legato_enabled = value < 64;
       }
       break;

@@ -14,7 +14,6 @@
 
 
 ## Medium Priority
-- [ ] finalise glide times. or alternatively have a constant glide time and either turn it on or off
 - [ ] fine tune envelope times
 - [ ] should lfo to osc be bipolar? currently it is unipolar?
 - [ ] fine tune range for lfo to osc. currently goes up to 1 octave, but not sure how useful that is
@@ -30,6 +29,7 @@
 - [ ] send midi over usb to update web programmer
 - [ ] logical operator distortion - type and crossfade distortion amount
 - [ ] x-mod of oscillators
+- [x] finalise glide times. or alternatively have a constant glide time and either turn it on or off
 - [x] fine tune pitch env decay times
 - [x] add detune to 3rd, 5th, etc?
 - [x] crossfade between osc A and osc B using constant power instead of linear crossfade

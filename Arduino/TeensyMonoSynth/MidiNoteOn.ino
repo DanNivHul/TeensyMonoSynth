@@ -30,11 +30,15 @@ void myNoteOn(byte channel, byte note, byte velocity) {
     envelope_amp.noteOn();
     envelope_filter.noteOn();
     envelope_lfo_delay.noteOn();
-    dc_osc_freq_env.amplitude(pitch_envelope_depth);
-    dc_osc_freq_env.amplitude(0.0, pitch_envelope_decay_time_ms);
-  } else {
-    // If a note is being held - Glide to new note. 
-    dc_osc_freq.amplitude(NOTE_FREQ_DC[note], glide_time_ms);
+    dc_pitch_env.amplitude(pitch_envelope_depth);
+    dc_pitch_env.amplitude(0.0, pitch_envelope_decay_time_ms);
+  } else {  
+    // If a note is being held 
+
+    // If glide is enabled, glide to new note. 
+    // If glide not enabled, immediately change to new note.
+    float actual_glide_time_ms = is_glide_enabled ? GLIDE_TIME_MS : 0.0;
+    dc_osc_freq.amplitude(NOTE_FREQ_DC[note], actual_glide_time_ms);
     
     // If legato mode is enabled - do not trigger envelope.
     // If legato mode is not enabled - do trigger envelope.
@@ -42,8 +46,8 @@ void myNoteOn(byte channel, byte note, byte velocity) {
       envelope_amp.noteOn();
       envelope_filter.noteOn();
       envelope_lfo_delay.noteOn();
-      dc_osc_freq_env.amplitude(pitch_envelope_depth);
-      dc_osc_freq_env.amplitude(0.0, pitch_envelope_decay_time_ms);
+      dc_pitch_env.amplitude(pitch_envelope_depth);
+      dc_pitch_env.amplitude(0.0, pitch_envelope_decay_time_ms);
     }
   }
   
