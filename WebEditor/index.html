@@ -42,11 +42,11 @@
                 value: 0
               },
               {
-                text: "Saw / Pulse",
+                text: "Saw / Square",
                 value: 64
               },
               {
-                text: "Pulse / Pulse",
+                text: "Square / Square",
                 value: 127
               }
             ],
@@ -87,7 +87,12 @@
             cc: 16
           },
           {
-            name: "EG Depth",
+            name: "Pitch Env Depth",
+            type: "range",
+            cc: 17
+          },
+          {
+            name: "Pitch Env Decay Time",
             type: "range",
             cc: 18
           }
@@ -205,26 +210,6 @@
             name: "Decay",
             type: "range",
             cc: 51
-          },
-          {
-            name: "Attack",
-            type: "range",
-            cc: 52
-          },
-          {
-            name: "Decay",
-            type: "range",
-            cc: 53
-          },
-          {
-            name: "Sustain",
-            type: "range",
-            cc: 54
-          },
-          {
-            name: "Release",
-            type: "range",
-            cc: 55
           },
         ]
       }

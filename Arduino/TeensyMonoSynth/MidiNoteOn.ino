@@ -30,7 +30,8 @@ void myNoteOn(byte channel, byte note, byte velocity) {
     envelope_amp.noteOn();
     envelope_filter.noteOn();
     envelope_lfo_delay.noteOn();
-    envelope.noteOn();
+    dc_osc_freq_env.amplitude(pitch_envelope_depth);
+    dc_osc_freq_env.amplitude(0.0, pitch_envelope_decay_time_ms);
   } else {
     // If a note is being held - Glide to new note. 
     dc_osc_freq.amplitude(NOTE_FREQ_DC[note], glide_time_ms);
@@ -41,7 +42,8 @@ void myNoteOn(byte channel, byte note, byte velocity) {
       envelope_amp.noteOn();
       envelope_filter.noteOn();
       envelope_lfo_delay.noteOn();
-      envelope.noteOn();
+      dc_osc_freq_env.amplitude(pitch_envelope_depth);
+      dc_osc_freq_env.amplitude(0.0, pitch_envelope_decay_time_ms);
     }
   }
   

@@ -1,8 +1,8 @@
 # Teensy Monosynth To-Do List
 
 ## High Priority
-- [ ] envelope to osc pitch. have it's own rate and depth
 - [ ] set volume to 1
+- [x] envelope to osc pitch. have it's own rate and depth
 - [x] remove pulse width cc stuff on arduino code and web programmer
 - [x] change pulse to square for Osc A and Osc B
 - [x] change web programmer to not need spanid in data provided
@@ -15,6 +15,7 @@
 
 ## Medium Priority
 - [ ] finalise glide times. or alternatively have a constant glide time and either turn it on or off
+- [ ] fine tune envelope times
 - [ ] should lfo to osc be bipolar? currently it is unipolar?
 - [ ] fine tune range for lfo to osc. currently goes up to 1 octave, but not sure how useful that is
 - [ ] pitch bend
@@ -29,6 +30,7 @@
 - [ ] send midi over usb to update web programmer
 - [ ] logical operator distortion - type and crossfade distortion amount
 - [ ] x-mod of oscillators
+- [x] fine tune pitch env decay times
 - [x] add detune to 3rd, 5th, etc?
 - [x] crossfade between osc A and osc B using constant power instead of linear crossfade
 

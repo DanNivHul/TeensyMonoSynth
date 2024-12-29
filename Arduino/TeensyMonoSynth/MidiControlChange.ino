@@ -58,8 +58,17 @@ void myControlChange(byte channel, byte control, byte value) {
       }
       break;
 
-    case 18: { // Osc freq envelope depth
-        amp_osc_freq_envelope_depth.gain(POWER[value] * MAX_OSC_ENVELOPE_DEPTH);
+    case 17: { // Pitch envelope depth
+        if (value >= 62 && value <= 65) {
+          pitch_envelope_depth = 0.0;
+        } else {
+          pitch_envelope_depth = ((value / 127.0 * 2.0) - 1.0) * MAX_PITCH_ENVELOPE_DEPTH;
+        }
+      }
+      break;
+
+    case 18: { // Pitch envelope decay time
+        pitch_envelope_decay_time_ms = value;
       }
       break;
 
@@ -147,23 +156,7 @@ void myControlChange(byte channel, byte control, byte value) {
 
     case 51: // Filter decay time 
       envelope_filter.decay(3000 * (value / 127.0));  // todo - better formula for mapping midi values
-      break;   
-
-    case 52: // Envelope - Attack time 
-      envelope.attack(ENV_TIMES_MS[value]);  // todo - better formula for mapping midi values
-      break;   
-
-    case 53: // Envelope - Decay time
-      envelope.decay(ENV_TIMES_MS[value]);  // todo - better formula for mapping midi values
-      break;   
-
-    case 54: // Envelope - Sustain
-      envelope.sustain(value / 127.0);
-      break;   
-
-    case 55: // Envelope - Release time
-      envelope.release(ENV_TIMES_MS[value]);  // todo - better formula for mapping midi values
-      break;   
+      break; 
 
     case 60: // Volume
       amp_output.gain(log10(value / 127.0 * 9.0 + 1.0));

@@ -54,7 +54,7 @@ void setupAudio() {
 
   // Oscillator Modulation
   amp_osc_freq_lfo_depth.gain(0.0);
-  amp_osc_freq_envelope_depth.gain(0.0);
+  dc_osc_freq_env.amplitude(0.0);
 
   // Noise Generator
   pink_noise.amplitude(0.1);
@@ -108,14 +108,6 @@ void setupAudio() {
   envelope_lfo_delay.sustain(1.0);
   envelope_lfo_delay.release(0.0);
   envelope_lfo_delay.releaseNoteOn(0.0);
-
-  // Envelope
-  dc_constant_1.amplitude(1.0);
-
-  envelope.attack(0.0);
-  envelope.decay(0.0);
-  envelope.sustain(1.0);
-  envelope.release(0.0);
 
   // Output Level
   amp_output.gain(0.7);
