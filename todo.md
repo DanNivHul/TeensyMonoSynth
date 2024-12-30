@@ -20,6 +20,7 @@
 - [ ] only listen to midi on one channel
 - [ ] midi channel learn
 - [ ] modulate filter cutoff with osc B
+- [ ] fine tune time for velocity amp modulation to take effect. maybe bump up to 5ms?
 - [ ] fine tune envelope times
 - [ ] should lfo to osc be bipolar? currently it is unipolar?
 - [ ] fine tune range for lfo to osc. currently goes up to 1 octave, but not sure how useful that is
