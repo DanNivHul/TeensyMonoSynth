@@ -54,7 +54,7 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 16: { // Osc lfo depth
-        amp_osc_freq_lfo_depth.gain(POWER[value] * MAX_OSC_LFO_AMPLITUDE);
+        amp_pitch_lfo_depth.gain(POWER[value] * MAX_OSC_LFO_AMPLITUDE);
       }
       break;
 

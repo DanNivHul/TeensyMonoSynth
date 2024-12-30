@@ -53,7 +53,7 @@ void setupAudio() {
   mixer_osc_sub_freq.gain(3, 0.0);  // Not used
 
   // Oscillator Modulation
-  amp_osc_freq_lfo_depth.gain(0.0);
+  amp_pitch_lfo_depth.gain(0.0);
   dc_pitch_env.amplitude(0.0);
 
   // Noise Generator
