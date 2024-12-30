@@ -170,7 +170,7 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 61: // Note velocity to volume depth
-      note_velocity_to_volume_depth = value / 127.0;
+      note_velocity_to_volume_depth = log10(value / 127.0 * 9.0 + 1.0);
       break;
   }
 }
