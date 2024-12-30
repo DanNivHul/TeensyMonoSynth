@@ -44,9 +44,15 @@ void myNoteOn(byte channel, byte note, byte velocity) {
     }
   }
 
+  modulateVolumeWithVelocity(velocity);
   dc_note_velocity.amplitude(velocity / 127.0, 1);
   
   // AudioInterrupts();  // Enable the audio library update interrupt. Any settings changed will all take effect at the same time.
+}
+
+void modulateVolumeWithVelocity(byte velocity) {
+  float amplitude = 1 - (1.0 - velocity / 127.0) * note_velocity_to_volume_depth;
+  dc_volume_note_velocity.amplitude(amplitude, 1);
 }
 
 void triggerEnvelopes() {

@@ -110,20 +110,6 @@ void setupAudio() {
   envelope_lfo_delay.release(0.0);
   envelope_lfo_delay.releaseNoteOn(0.0);
 
-  // Note Velocity to Volume Mod
-  mixer_invert_1.gain(0,  1.0); // Constant 1 Volt
-  mixer_invert_1.gain(1, -1.0); // Note Velocity
-  mixer_invert_1.gain(2,  0.0); // Not used
-  mixer_invert_1.gain(3,  0.0); // Not used
-
-  mixer_invert_2.gain(0,  1.0); // Constant 1 Volt
-  mixer_invert_2.gain(1, -1.0); // Note Velocity Depth
-  mixer_invert_2.gain(2,  0.0); // Not used
-  mixer_invert_2.gain(3,  0.0); // Not used
-
   // Output Level
   amp_output.gain(0.7);
-
-  // Util
-  dc_constant_1.amplitude(1.0);
 }
