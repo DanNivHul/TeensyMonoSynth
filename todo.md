@@ -14,11 +14,13 @@
 
 
 ## Medium Priority
-- [ ] note velocity to volume. cc for depth
 - [ ] note velocity to filter cutoff. cc for depth
 - [ ] mod wheel to either filter cutoff or lfo depth?
 - [ ] pitch bend
 - [ ] x-mod of oscillators
+- [ ] only listen to midi on one channel
+- [ ] midi channel learn
+- [ ] modulate filter cutoff with osc B
 - [ ] fine tune envelope times
 - [ ] should lfo to osc be bipolar? currently it is unipolar?
 - [ ] fine tune range for lfo to osc. currently goes up to 1 octave, but not sure how useful that is
@@ -29,6 +31,7 @@
 - [ ] lfo option where each note on triggers a new random value and sustains it until the next note on 
 - [ ] send midi over usb to update web programmer
 - [ ] logical operator distortion - type and crossfade distortion amount
+- [x] note velocity to volume. cc for depth
 - [x] finalise glide times. or alternatively have a constant glide time and either turn it on or off
 - [x] fine tune pitch env decay times
 - [x] add detune to 3rd, 5th, etc?
@@ -37,6 +40,7 @@
 
 ## Low Priority
 - [ ] sub waveform select (square... maybe triangle too?). Possibly -1 and -2 octave down option?
+- [ ] remove cc for volume.
 - [ ] option for auto-glide (always glide vs only glide when notes overlap)
 - [ ] finetune lfo rate range. 
 - [ ] option to reset phase of osc when note on event is triggered. cc for that

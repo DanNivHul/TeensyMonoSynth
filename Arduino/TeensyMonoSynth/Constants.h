@@ -1,4 +1,3 @@
-// CONSTANTS
 const float GLIDE_TIME_MS = 60;
 const uint8_t HELD_NOTES_COUNT = 8;
 const float MAX_OSC_LEVEL = 0.2;

@@ -161,6 +161,10 @@ void myControlChange(byte channel, byte control, byte value) {
     case 60: // Volume
       amp_output.gain(log10(value / 127.0 * 9.0 + 1.0));
       break;
+
+    case 61: // Note velocity to volume depth
+      note_velocity_to_volume_depth = value / 127.0;
+      break;
   }
 }
 

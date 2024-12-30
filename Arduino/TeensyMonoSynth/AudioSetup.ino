@@ -22,15 +22,11 @@ void setupAudio() {
   osc_A.frequency(440.0);
   osc_A.frequencyModulation(10.0);
 
-  dc_osc_A_pulse_width.amplitude(0.5);
-
   // Oscillator B
   osc_B.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
   osc_B.amplitude(0.1);
   osc_B.frequency(440.0);
   osc_B.frequencyModulation(10.0);
-
-  dc_osc_B_pulse_width.amplitude(0.75);
 
   dc_detune.amplitude(detune_amount);
 
