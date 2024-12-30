@@ -14,7 +14,8 @@ AudioMixer4              mixer_osc_sub_freq; //xy=1971.3999481201172,1454.666856
 AudioSynthWaveformDc     dc_detune;      //xy=2018.3999557495117,1158.6667308807373
 AudioMixer4              mixer_filter_mod; //xy=2067.399971008301,1937.666711807251
 AudioMixer4              mixer_osc_B_freq; //xy=2261.3999557495117,1164.6667308807373
-AudioSynthWaveformModulated osc_A;          //xy=2735.399971008301,1096.666711807251
+AudioMixer4              mixer_osc_A_freq;         //xy=2490.806083679199,1002.8251495361328
+AudioSynthWaveformModulated osc_A;          //xy=2733.3998374938965,1098.6667022705078
 AudioSynthWaveformModulated osc_sub;        //xy=2734.399971008301,1357.666711807251
 AudioSynthWaveformModulated osc_B;          //xy=2735.399971008301,1247.666711807251
 AudioSynthNoisePink      pink_noise;     //xy=2735.399971008301,1466.666711807251
@@ -36,7 +37,7 @@ AudioConnection          patchCord7(dc_pitch_env, 0, mixer_osc_common_freq, 3);
 AudioConnection          patchCord8(dc_filter_envelope_depth, envelope_filter);
 AudioConnection          patchCord9(mixer_osc_common_freq, 0, mixer_osc_B_freq, 0);
 AudioConnection          patchCord10(mixer_osc_common_freq, 0, mixer_osc_sub_freq, 0);
-AudioConnection          patchCord11(mixer_osc_common_freq, 0, osc_A, 0);
+AudioConnection          patchCord11(mixer_osc_common_freq, 0, mixer_osc_A_freq, 0);
 AudioConnection          patchCord12(dc_osc_sub_freq_offset, 0, mixer_osc_sub_freq, 1);
 AudioConnection          patchCord13(amp_filter_lfo_depth, 0, mixer_filter_mod, 0);
 AudioConnection          patchCord14(envelope_filter, 0, mixer_filter_mod, 1);
@@ -44,19 +45,21 @@ AudioConnection          patchCord15(mixer_osc_sub_freq, 0, osc_sub, 0);
 AudioConnection          patchCord16(dc_detune, 0, mixer_osc_B_freq, 1);
 AudioConnection          patchCord17(mixer_filter_mod, 0, filter, 1);
 AudioConnection          patchCord18(mixer_osc_B_freq, 0, osc_B, 0);
-AudioConnection          patchCord19(osc_A, 0, mixer, 0);
-AudioConnection          patchCord20(osc_sub, 0, mixer, 2);
-AudioConnection          patchCord21(osc_B, 0, mixer, 1);
-AudioConnection          patchCord22(pink_noise, 0, mixer, 3);
-AudioConnection          patchCord23(mixer, 0, filter, 0);
-AudioConnection          patchCord24(filter, 0, mixer_filter_output, 0);
-AudioConnection          patchCord25(filter, 1, mixer_filter_output, 1);
-AudioConnection          patchCord26(filter, 2, mixer_filter_output, 2);
-AudioConnection          patchCord27(mixer_filter_output, envelope_amp);
-AudioConnection          patchCord28(dc_note_velocity, 0, multiply_1, 1);
-AudioConnection          patchCord29(envelope_amp, 0, multiply_1, 0);
-AudioConnection          patchCord30(multiply_1, amp_output);
-AudioConnection          patchCord31(amp_output, 0, i2s1, 0);
-AudioConnection          patchCord32(amp_output, 0, i2s1, 1);
+AudioConnection          patchCord19(mixer_osc_A_freq, 0, osc_A, 0);
+AudioConnection          patchCord20(osc_A, 0, mixer, 0);
+AudioConnection          patchCord21(osc_sub, 0, mixer, 2);
+AudioConnection          patchCord22(osc_B, 0, mixer, 1);
+AudioConnection          patchCord23(osc_B, 0, mixer_osc_A_freq, 1);
+AudioConnection          patchCord24(pink_noise, 0, mixer, 3);
+AudioConnection          patchCord25(mixer, 0, filter, 0);
+AudioConnection          patchCord26(filter, 0, mixer_filter_output, 0);
+AudioConnection          patchCord27(filter, 1, mixer_filter_output, 1);
+AudioConnection          patchCord28(filter, 2, mixer_filter_output, 2);
+AudioConnection          patchCord29(mixer_filter_output, envelope_amp);
+AudioConnection          patchCord30(dc_note_velocity, 0, multiply_1, 1);
+AudioConnection          patchCord31(envelope_amp, 0, multiply_1, 0);
+AudioConnection          patchCord32(multiply_1, amp_output);
+AudioConnection          patchCord33(amp_output, 0, i2s1, 0);
+AudioConnection          patchCord34(amp_output, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=4247.3999671936035,1597.6668348312378
 // GUItool: end automatically generated code

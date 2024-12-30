@@ -43,6 +43,13 @@ void myControlChange(byte channel, byte control, byte value) {
       }
       break;
 
+    case 13: { // Cross Modulation
+        float cross_mod_depth = POWER[value] * MAX_CROSS_MODULATION_DEPTH;
+        mixer_osc_A_freq.gain(1, cross_mod_depth);
+        mixer_osc_B_freq.gain(2, cross_mod_depth);
+      }
+      break;
+
     case 14: { // Glide - enable / disable
         is_glide_enabled = value < 64;
       }

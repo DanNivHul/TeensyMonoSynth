@@ -22,6 +22,11 @@ void setupAudio() {
   osc_A.frequency(440.0);
   osc_A.frequencyModulation(10.0);
 
+  mixer_osc_A_freq.gain(0, 1.0);  // Common frequency - note, pitch bend, etc.
+  mixer_osc_A_freq.gain(1, 0.0);  // X-mod
+  mixer_osc_A_freq.gain(2, 0.0);  // Not used
+  mixer_osc_A_freq.gain(3, 0.0);  // Not used
+
   // Oscillator B
   osc_B.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
   osc_B.amplitude(0.1);
@@ -32,7 +37,7 @@ void setupAudio() {
 
   mixer_osc_B_freq.gain(0, 1.0);  // Common frequency - note, pitch bend, etc.
   mixer_osc_B_freq.gain(1, 1.0);  // Detune
-  mixer_osc_B_freq.gain(2, 0.0);  // Not used
+  mixer_osc_B_freq.gain(2, 0.0);  // X-mod
   mixer_osc_B_freq.gain(3, 0.0);  // Not used
 
   // Oscillator Sub

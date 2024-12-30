@@ -17,7 +17,6 @@
 - [ ] note velocity to filter cutoff. cc for depth
 - [ ] mod wheel to either filter cutoff or lfo depth?
 - [ ] pitch bend
-- [ ] x-mod of oscillators
 - [ ] only listen to midi on one channel
 - [ ] midi channel learn
 - [ ] modulate filter cutoff with osc B
@@ -31,6 +30,7 @@
 - [ ] lfo option where each note on triggers a new random value and sustains it until the next note on 
 - [ ] send midi over usb to update web programmer
 - [ ] logical operator distortion - type and crossfade distortion amount
+- [x] x-mod of oscillators
 - [x] note velocity to volume. cc for depth
 - [x] finalise glide times. or alternatively have a constant glide time and either turn it on or off
 - [x] fine tune pitch env decay times
