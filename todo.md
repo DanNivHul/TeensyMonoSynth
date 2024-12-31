@@ -15,8 +15,10 @@
 
 ## Medium Priority
 - [ ] only listen to midi on one channel
-- [ ] lfo 2 to pitch?
 - [ ] midi channel learn
+- [ ] lfo 2 to pitch?
+- [ ] option to sync lfo 2 to lfo 1. rate knob becomes ratio of lfo 1 rate
+- [ ] option to sync lfo 1 to midi clock. rate knob becomes ratio of midi clock
 - [ ] modulate filter cutoff with osc B
 - [ ] fine tune time for velocity amp modulation to take effect. maybe bump up to 5ms?
 - [ ] fine tune envelope times
@@ -41,6 +43,7 @@
 ## Low Priority
 - [ ] sub waveform select (square... maybe triangle too?). Possibly -1 and -2 octave down option?
 - [ ] remove cc for volume.
+- [ ] consider reintroducing glide time?
 - [ ] option for auto-glide (always glide vs only glide when notes overlap)
 - [ ] finetune lfo rate range. 
 - [ ] option to reset phase of osc when note on event is triggered. cc for that
