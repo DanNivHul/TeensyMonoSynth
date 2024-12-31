@@ -15,22 +15,19 @@
 
 ## Medium Priority
 - [ ] second lfo
-- [ ] mod wheel to either filter cutoff or lfo depth?
 - [ ] pitch bend
 - [ ] only listen to midi on one channel
 - [ ] midi channel learn
 - [ ] modulate filter cutoff with osc B
 - [ ] fine tune time for velocity amp modulation to take effect. maybe bump up to 5ms?
 - [ ] fine tune envelope times
-- [ ] should lfo to osc be bipolar? currently it is unipolar?
 - [ ] fine tune range for lfo to osc. currently goes up to 1 octave, but not sure how useful that is
 - [ ] try supersaw as an oscillator option
-- [ ] filter cutoff envelope bipolar. 
-- [ ] filter cutoff lfo bipolar
 - [ ] white noise as lfo source
 - [ ] lfo option where each note on triggers a new random value and sustains it until the next note on 
 - [ ] send midi over usb to update web programmer
 - [ ] logical operator distortion - type and crossfade distortion amount
+- [x] mod wheel to lfo depth
 - [x] note velocity to filter cutoff. cc for depth
 - [x] x-mod of oscillators
 - [x] note velocity to volume. cc for depth

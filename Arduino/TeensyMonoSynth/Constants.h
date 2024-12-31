@@ -1,6 +1,7 @@
 const float GLIDE_TIME_MS = 60;
 const uint8_t HELD_NOTES_COUNT = 8;
 const float MAX_CROSS_MODULATION_DEPTH = 10.0;
+const float MAX_LFO_AMPLITUDE = 0.5;
 const float MAX_OSC_LEVEL = 0.2;
 const float MAX_OSC_LFO_AMPLITUDE = 0.1;
 const float MAX_PITCH_ENVELOPE_DEPTH = 0.3;

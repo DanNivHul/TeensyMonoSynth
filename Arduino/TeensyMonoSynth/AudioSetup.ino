@@ -101,9 +101,9 @@ void setupAudio() {
 
   // LFO
   lfo.begin(WAVEFORM_TRIANGLE);
-  lfo.amplitude(0.5);
+  lfo.amplitude(MAX_LFO_AMPLITUDE);
   lfo.frequency(0.1);
-  lfo.offset(0.5);
+  lfo.offset(MAX_LFO_AMPLITUDE);  // Update offset by the same amount as amplitude to keep lfo range from 0 to 2 * amplitude
 
   envelope_lfo_delay.attack(0.0);
   envelope_lfo_delay.decay(0.0);

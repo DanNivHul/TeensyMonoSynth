@@ -8,6 +8,15 @@ void myControlChange(byte channel, byte control, byte value) {
 
   switch (control) {
 
+    case 1: { // Mod Wheel
+        // Update lfo amplitude
+        // Update offset by the same amount to keep lfo range from 0 to 2 * amplitude
+        float amplitude = value / 127.0 * MAX_LFO_AMPLITUDE;
+        lfo.amplitude(amplitude);
+        lfo.offset(amplitude);
+      }
+      break;
+
     case 10: { // Osc Waveshapes
         if (value < 43) {
           osc_A.begin(WAVEFORM_BANDLIMIT_SAWTOOTH);
