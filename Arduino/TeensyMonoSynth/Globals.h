@@ -1,6 +1,7 @@
 float detune_amount = 0.001;
 float filter_envelope_depth = 0;
-float filter_lfo_depth = 0;
+float filter_lfo_1_depth = 0;
+float filter_lfo_2_depth = 0;
 float filter_velocity_depth = 0.25;
 uint8_t held_notes[HELD_NOTES_COUNT];
 bool is_glide_enabled = true;

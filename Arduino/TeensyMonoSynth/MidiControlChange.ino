@@ -12,8 +12,10 @@ void myControlChange(byte channel, byte control, byte value) {
         // Update lfo amplitude
         // Update offset by the same amount to keep lfo range from 0 to 2 * amplitude
         float amplitude = value / 127.0 * MAX_LFO_AMPLITUDE;
-        lfo.amplitude(amplitude);
-        lfo.offset(amplitude);
+        lfo_1.amplitude(amplitude);
+        lfo_1.offset(amplitude);
+        lfo_2.amplitude(amplitude);
+        lfo_2.offset(amplitude);
       }
       break;
 
@@ -68,7 +70,7 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 16: { // Osc lfo depth
-        amp_pitch_lfo_depth.gain(POWER[value] * MAX_OSC_LFO_AMPLITUDE);
+        amp_pitch_lfo_1_depth.gain(POWER[value] * MAX_OSC_LFO_AMPLITUDE);
       }
       break;
 
@@ -119,8 +121,8 @@ void myControlChange(byte channel, byte control, byte value) {
       updateFilterMods();
       break;
 
-    case 33: // Filter lfo depth 
-      filter_lfo_depth = value / 127.0;
+    case 33: // Filter lfo 1 depth 
+      filter_lfo_1_depth = value / 127.0;
       updateFilterMods();
       break;
 
@@ -139,30 +141,58 @@ void myControlChange(byte channel, byte control, byte value) {
         mixer_filter_output.gain(0, 0.0); // Low pass
         mixer_filter_output.gain(1, 1.0); // Band pass
       }
-        
       break;
 
-    case 40: // Lfo rate
-      lfo.frequency(LFO_FREQS_HZ[value]);
+    case 36: // Filter lfo 2 depth 
+      filter_lfo_2_depth = value / 127.0;
+      updateFilterMods();
       break;
 
-    case 41: // Lfo delay
-      envelope_lfo_delay.attack(ENV_TIMES_MS[value]);
+    case 40: // Lfo 1 - Rate
+      lfo_1.frequency(LFO_FREQS_HZ[value]);
       break;
 
-    case 42: // Lfo wave shape
+    case 41: // Lfo 1 - Delay
+      envelope_lfo_1_delay.attack(ENV_TIMES_MS[value]);
+      break;
+
+    case 42: // Lfo 1 - Wave Shape
       if (value < 21) {
-        lfo.begin(WAVEFORM_SINE);
+        lfo_1.begin(WAVEFORM_SINE);
       } else if (value < 42) {
-        lfo.begin(WAVEFORM_TRIANGLE);
+        lfo_1.begin(WAVEFORM_TRIANGLE);
       } else if (value < 63) {
-        lfo.begin(WAVEFORM_SAWTOOTH);
+        lfo_1.begin(WAVEFORM_SAWTOOTH);
       } else if (value < 84) {
-        lfo.begin(WAVEFORM_SAWTOOTH_REVERSE);
+        lfo_1.begin(WAVEFORM_SAWTOOTH_REVERSE);
       } else if (value < 105) {
-        lfo.begin(WAVEFORM_SQUARE);
+        lfo_1.begin(WAVEFORM_SQUARE);
       } else {
-        lfo.begin(WAVEFORM_SAMPLE_HOLD);
+        lfo_1.begin(WAVEFORM_SAMPLE_HOLD);
+      }
+      break;
+
+    case 43: // Lfo 2 - Rate
+      lfo_2.frequency(LFO_FREQS_HZ[value]);
+      break;
+
+    case 44: // Lfo 2 - Lfo 1 fm
+      amp_lfo_2_to_lfo_1_mod_depth.gain(POWER[value] * MAX_LFO_2_TO_LFO_1_MOD_DEPTH);
+      break;
+
+    case 45: // Lfo 2 - Wave Shape
+      if (value < 21) {
+        lfo_2.begin(WAVEFORM_SINE);
+      } else if (value < 42) {
+        lfo_2.begin(WAVEFORM_TRIANGLE);
+      } else if (value < 63) {
+        lfo_2.begin(WAVEFORM_SAWTOOTH);
+      } else if (value < 84) {
+        lfo_2.begin(WAVEFORM_SAWTOOTH_REVERSE);
+      } else if (value < 105) {
+        lfo_2.begin(WAVEFORM_SQUARE);
+      } else {
+        lfo_2.begin(WAVEFORM_SAMPLE_HOLD);
       }
       break;
 
@@ -188,14 +218,16 @@ void myControlChange(byte channel, byte control, byte value) {
 }
 
 void updateFilterMods() {
-  float sum = filter_envelope_depth + filter_lfo_depth + filter_velocity_depth;
+  float sum = filter_envelope_depth + filter_lfo_1_depth + filter_lfo_2_depth + filter_velocity_depth;
   if (sum <= 1.0) {
     dc_filter_envelope_depth.amplitude(filter_envelope_depth); 
-    amp_filter_lfo_depth.gain(filter_lfo_depth);               
+    amp_filter_lfo_1_depth.gain(filter_lfo_1_depth);               
+    amp_filter_lfo_2_depth.gain(filter_lfo_2_depth);               
     amp_filter_note_velocity_depth.gain(filter_velocity_depth);
   } else {
     dc_filter_envelope_depth.amplitude(filter_envelope_depth / sum); 
-    amp_filter_lfo_depth.gain(filter_lfo_depth / sum);               
+    amp_filter_lfo_1_depth.gain(filter_lfo_1_depth / sum);   
+    amp_filter_lfo_2_depth.gain(filter_lfo_2_depth / sum);                           
     amp_filter_note_velocity_depth.gain(filter_velocity_depth / sum);
   }
 }

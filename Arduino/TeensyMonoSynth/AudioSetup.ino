@@ -54,7 +54,7 @@ void setupAudio() {
   mixer_osc_sub_freq.gain(3, 0.0);  // Not used
 
   // Oscillator Modulation
-  amp_pitch_lfo_depth.gain(0.0);
+  amp_pitch_lfo_1_depth.gain(0.0);
   dc_pitch_env.amplitude(0.0);
 
   // Noise Generator
@@ -85,13 +85,13 @@ void setupAudio() {
 
   // Filter Modulation
   dc_filter_envelope_depth.amplitude(0.0);
-  amp_filter_lfo_depth.gain(0.0);
+  amp_filter_lfo_1_depth.gain(0.0);
   amp_filter_note_velocity_depth.gain(filter_velocity_depth);
 
-  mixer_filter_mod.gain(0, 1.0); // Lfo
-  mixer_filter_mod.gain(1, 1.0); // Env
-  mixer_filter_mod.gain(2, 1.0); // Note velocity
-  mixer_filter_mod.gain(3, 0.0); // Not used
+  mixer_filter_mod.gain(0, 1.0); // Lfo 1
+  mixer_filter_mod.gain(1, 1.0); // Lfo 2
+  mixer_filter_mod.gain(2, 1.0); // Envelope
+  mixer_filter_mod.gain(3, 1.0); // Note velocity
 
   // Amplitude Envelope
   envelope_amp.attack(1.0);
@@ -99,17 +99,24 @@ void setupAudio() {
   envelope_amp.sustain(1.0);
   envelope_amp.release(500.0);
 
-  // LFO
-  lfo.begin(WAVEFORM_TRIANGLE);
-  lfo.amplitude(MAX_LFO_AMPLITUDE);
-  lfo.frequency(0.1);
-  lfo.offset(MAX_LFO_AMPLITUDE);  // Update offset by the same amount as amplitude to keep lfo range from 0 to 2 * amplitude
+  // LFO 1
+  lfo_1.begin(WAVEFORM_TRIANGLE);
+  lfo_1.amplitude(MAX_LFO_AMPLITUDE);
+  lfo_1.frequency(0.1);
+  lfo_1.offset(MAX_LFO_AMPLITUDE);  // Update offset by the same amount as amplitude to keep lfo range from 0 to 2 * amplitude
+  lfo_1.frequencyModulation(10.0);
 
-  envelope_lfo_delay.attack(0.0);
-  envelope_lfo_delay.decay(0.0);
-  envelope_lfo_delay.sustain(1.0);
-  envelope_lfo_delay.release(0.0);
-  envelope_lfo_delay.releaseNoteOn(0.0);
+  envelope_lfo_1_delay.attack(0.0);
+  envelope_lfo_1_delay.decay(0.0);
+  envelope_lfo_1_delay.sustain(1.0);
+  envelope_lfo_1_delay.release(0.0);
+  envelope_lfo_1_delay.releaseNoteOn(0.0);
+
+  // LFO 2
+  lfo_2.begin(WAVEFORM_TRIANGLE);
+  lfo_2.amplitude(MAX_LFO_AMPLITUDE);
+  lfo_2.frequency(0.1);
+  lfo_2.offset(MAX_LFO_AMPLITUDE);  // Update offset by the same amount as amplitude to keep lfo range from 0 to 2 * amplitude
 
   // Note Velocity to Volume Mod
   amp_volume_note_velocity_depth.gain(0.25);
