@@ -149,9 +149,14 @@
             cc: 32
           },
           {
-            name: "LFO Depth",
+            name: "LFO 1 Depth",
             type: "range",
             cc: 33
+          },
+          {
+            name: "LFO 2 Depth",
+            type: "range",
+            cc: 36
           },
           {
             name: "Velocity Depth",
@@ -175,7 +180,7 @@
         ]
       },
       {
-        heading: "LFO",
+        heading: "LFO 1",
         inputs: [{
             name: "Rate",
             type: "range",
@@ -215,6 +220,50 @@
               },
             ],
             cc: 42
+          },
+        ]
+      },
+      {
+        heading: "LFO 2",
+        inputs: [{
+            name: "Rate",
+            type: "range",
+            cc: 43
+          },
+          {
+            name: "Lfo 1 mod",
+            type: "range",
+            cc: 44
+          },
+          {
+            name: "Waveshapes",
+            type: "select",
+            options: [{
+                text: "Sine",
+                value: 0
+              },
+              {
+                text: "Triangle",
+                value: 30
+              },
+              {
+                text: "Saw",
+                value: 50
+              },
+              {
+                text: "Reverse Saw",
+                value: 70
+              },
+              {
+                text: "Square",
+                value: 90
+              },
+              {
+                text: "Sample and Hold",
+                value: 110
+              },
+            ],
+            cc: 45
           },
         ]
       },

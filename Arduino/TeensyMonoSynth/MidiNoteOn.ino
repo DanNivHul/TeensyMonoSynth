@@ -52,7 +52,7 @@ void myNoteOn(byte channel, byte note, byte velocity) {
 void triggerEnvelopes() {
   envelope_amp.noteOn();
   envelope_filter.noteOn();
-  envelope_lfo_delay.noteOn();
+  envelope_lfo_1_delay.noteOn();
   dc_pitch_env.amplitude(pitch_envelope_depth);
   dc_pitch_env.amplitude(0.0, pitch_envelope_decay_time_ms);
 }
