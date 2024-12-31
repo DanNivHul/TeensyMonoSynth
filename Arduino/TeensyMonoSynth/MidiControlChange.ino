@@ -43,7 +43,7 @@ void myControlChange(byte channel, byte control, byte value) {
       }
       break;
 
-    case 13: { // Cross Modulation
+    case 13: { // Osc B FM Osc A
         mixer_osc_A_freq.gain(1, POWER[value] * MAX_CROSS_MODULATION_DEPTH);
       }
       break;
