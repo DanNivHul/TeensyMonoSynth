@@ -14,8 +14,8 @@
 
 
 ## Medium Priority
-- [ ] second lfo
 - [ ] only listen to midi on one channel
+- [ ] lfo 2 to pitch?
 - [ ] midi channel learn
 - [ ] modulate filter cutoff with osc B
 - [ ] fine tune time for velocity amp modulation to take effect. maybe bump up to 5ms?
@@ -26,6 +26,7 @@
 - [ ] lfo option where each note on triggers a new random value and sustains it until the next note on 
 - [ ] send midi over usb to update web programmer
 - [ ] logical operator distortion - type and crossfade distortion amount
+- [x] second lfo
 - [x] pitch bend
 - [x] mod wheel to lfo depth
 - [x] note velocity to filter cutoff. cc for depth
