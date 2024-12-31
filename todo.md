@@ -14,6 +14,7 @@
 
 
 ## Medium Priority
+- [ ] second lfo
 - [ ] mod wheel to either filter cutoff or lfo depth?
 - [ ] pitch bend
 - [ ] only listen to midi on one channel
