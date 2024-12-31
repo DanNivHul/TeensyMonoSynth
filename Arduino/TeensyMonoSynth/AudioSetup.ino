@@ -23,7 +23,7 @@ void setupAudio() {
   osc_A.frequencyModulation(10.0);
 
   mixer_osc_A_freq.gain(0, 1.0);  // Common frequency - note, pitch bend, etc.
-  mixer_osc_A_freq.gain(1, 0.0);  // X-mod
+  mixer_osc_A_freq.gain(1, 0.0);  // Osc B FM Osc A
   mixer_osc_A_freq.gain(2, 0.0);  // Not used
   mixer_osc_A_freq.gain(3, 0.0);  // Not used
 
@@ -37,7 +37,7 @@ void setupAudio() {
 
   mixer_osc_B_freq.gain(0, 1.0);  // Common frequency - note, pitch bend, etc.
   mixer_osc_B_freq.gain(1, 1.0);  // Detune
-  mixer_osc_B_freq.gain(2, 0.0);  // X-mod
+  mixer_osc_B_freq.gain(2, 0.0);  // Not used
   mixer_osc_B_freq.gain(3, 0.0);  // Not used
 
   // Oscillator Sub
@@ -89,7 +89,7 @@ void setupAudio() {
 
   mixer_filter_mod.gain(0, 1.0); // Lfo
   mixer_filter_mod.gain(1, 1.0); // Env
-  mixer_filter_mod.gain(2, 0.0); // Not used
+  mixer_filter_mod.gain(2, 1.0); // Note velocity
   mixer_filter_mod.gain(3, 0.0); // Not used
 
   // Amplitude Envelope
@@ -110,6 +110,21 @@ void setupAudio() {
   envelope_lfo_delay.release(0.0);
   envelope_lfo_delay.releaseNoteOn(0.0);
 
+  // Note Velocity to Volume Mod
+  mixer_invert_1.gain(0, -1.0); // Note Velocity
+  mixer_invert_1.gain(1,  1.0); // Constant 1 Volt
+  mixer_invert_1.gain(2,  0.0); // Not used
+  mixer_invert_1.gain(3,  0.0); // Not used
+
+
+  mixer_invert_2.gain(0, -1.0); // Note Velocity Depth
+  mixer_invert_2.gain(1,  1.0); // Constant 1 Volt
+  mixer_invert_2.gain(2,  0.0); // Not used
+  mixer_invert_2.gain(3,  0.0); // Not used
+
   // Output Level
   amp_output.gain(0.7);
+
+  // Util
+  dc_constant_1.amplitude(1.0);
 }

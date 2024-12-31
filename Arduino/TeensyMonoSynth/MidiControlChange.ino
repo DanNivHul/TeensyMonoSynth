@@ -43,10 +43,8 @@ void myControlChange(byte channel, byte control, byte value) {
       }
       break;
 
-    case 13: { // Cross Modulation
-        float cross_mod_depth = POWER[value] * MAX_CROSS_MODULATION_DEPTH;
-        mixer_osc_A_freq.gain(1, cross_mod_depth);
-        mixer_osc_B_freq.gain(2, cross_mod_depth);
+    case 13: { // Osc B FM Osc A
+        mixer_osc_A_freq.gain(1, POWER[value] * MAX_CROSS_MODULATION_DEPTH);
       }
       break;
 
@@ -117,7 +115,12 @@ void myControlChange(byte channel, byte control, byte value) {
       updateFilterMods();
       break;
 
-    case 34: // Filter type - low pass / band pass 
+    case 34: // Filter velocity depth 
+      filter_velocity_depth_cc_value = value;
+      updateFilterMods();
+      break;
+
+    case 35: // Filter type - low pass / band pass 
       if (value < 64) {
         // Use low pass filter
         mixer_filter_output.gain(0, 1.0); // Low pass
@@ -170,19 +173,21 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 61: // Note velocity to volume depth
-      note_velocity_to_volume_depth = log10(value / 127.0 * 9.0 + 1.0);
+      amp_volume_note_velocity_depth.gain(log10(value / 127.0 * 9.0 + 1.0));
       break;
   }
 }
 
 void updateFilterMods() {
-  uint8_t sum = filter_envelope_depth_cc_value + filter_lfo_depth_cc_value;
+  uint8_t sum = filter_envelope_depth_cc_value + filter_lfo_depth_cc_value + filter_velocity_depth_cc_value;
   if (sum <= 127) {
     dc_filter_envelope_depth.amplitude(filter_envelope_depth_cc_value / 127.0); // todo - better formula for mapping midi values?
     amp_filter_lfo_depth.gain(filter_lfo_depth_cc_value / 127.0);                   // todo - better formula for mapping midi values?
+    amp_filter_note_velocity_depth.gain(filter_velocity_depth_cc_value / 127.0); // todo - better formula for mapping midi values?
   } else {
     dc_filter_envelope_depth.amplitude(filter_envelope_depth_cc_value / (float) sum); // todo - better formula for mapping midi values?
     amp_filter_lfo_depth.gain(filter_lfo_depth_cc_value / (float) sum);                   // todo - better formula for mapping midi values?
+    amp_filter_note_velocity_depth.gain(filter_velocity_depth_cc_value / (float) sum); // todo - better formula for mapping midi values?
   }
 }
 

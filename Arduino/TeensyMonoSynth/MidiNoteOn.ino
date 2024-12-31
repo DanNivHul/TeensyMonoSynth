@@ -24,10 +24,12 @@ void myNoteOn(byte channel, byte note, byte velocity) {
   
   // AudioNoInterrupts();  // Disable the audio library update interrupt. This allows more than 1 object's settings to be changed simultaneously.
 
+  dc_note_velocity.amplitude(velocity / 127.0, 1);
+
   if (new_note_index == 0) {
     // If no other note is being held - Play new note immediately. Update volume with respect to velocity. Do trigger envelopes.
     dc_osc_freq.amplitude(NOTE_FREQ_DC[note], 0.0);
-    modulateVolumeWithVelocity(velocity);
+    
     triggerEnvelopes();
   } else {  
     // If a note is being held 
@@ -36,9 +38,6 @@ void myNoteOn(byte channel, byte note, byte velocity) {
     // If glide not enabled, immediately change to new note.
     float actual_glide_time_ms = is_glide_enabled ? GLIDE_TIME_MS : 0.0;
     dc_osc_freq.amplitude(NOTE_FREQ_DC[note], actual_glide_time_ms);
-
-    // Update volume with respect to velocity.
-    modulateVolumeWithVelocity(velocity);
     
     // If legato mode is enabled - do not trigger envelopes.
     // If legato mode is not enabled - do trigger envelopes.
@@ -48,11 +47,6 @@ void myNoteOn(byte channel, byte note, byte velocity) {
   }
   
   // AudioInterrupts();  // Enable the audio library update interrupt. Any settings changed will all take effect at the same time.
-}
-
-void modulateVolumeWithVelocity(byte velocity) {
-  float amplitude = 1 - (1.0 - velocity / 127.0) * note_velocity_to_volume_depth;
-  dc_note_velocity.amplitude(amplitude, 1);
 }
 
 void triggerEnvelopes() {
