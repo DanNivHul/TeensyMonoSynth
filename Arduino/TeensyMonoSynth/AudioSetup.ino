@@ -86,6 +86,7 @@ void setupAudio() {
   // Filter Modulation
   dc_filter_envelope_depth.amplitude(0.0);
   amp_filter_lfo_depth.gain(0.0);
+  amp_filter_note_velocity_depth.gain(filter_velocity_depth);
 
   mixer_filter_mod.gain(0, 1.0); // Lfo
   mixer_filter_mod.gain(1, 1.0); // Env
@@ -111,6 +112,8 @@ void setupAudio() {
   envelope_lfo_delay.releaseNoteOn(0.0);
 
   // Note Velocity to Volume Mod
+  amp_volume_note_velocity_depth.gain(0.25);
+
   mixer_invert_1.gain(0, -1.0); // Note Velocity
   mixer_invert_1.gain(1,  1.0); // Constant 1 Volt
   mixer_invert_1.gain(2,  0.0); // Not used

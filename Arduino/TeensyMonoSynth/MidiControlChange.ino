@@ -106,17 +106,17 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 32: // Filter env depth 
-      filter_envelope_depth_cc_value = value;
+      filter_envelope_depth = value / 127.0;
       updateFilterMods();
       break;
 
     case 33: // Filter lfo depth 
-      filter_lfo_depth_cc_value = value;
+      filter_lfo_depth = value / 127.0;
       updateFilterMods();
       break;
 
     case 34: // Filter velocity depth 
-      filter_velocity_depth_cc_value = value;
+      filter_velocity_depth = value / 127.0;
       updateFilterMods();
       break;
 
@@ -179,15 +179,15 @@ void myControlChange(byte channel, byte control, byte value) {
 }
 
 void updateFilterMods() {
-  uint8_t sum = filter_envelope_depth_cc_value + filter_lfo_depth_cc_value + filter_velocity_depth_cc_value;
-  if (sum <= 127) {
-    dc_filter_envelope_depth.amplitude(filter_envelope_depth_cc_value / 127.0); // todo - better formula for mapping midi values?
-    amp_filter_lfo_depth.gain(filter_lfo_depth_cc_value / 127.0);                   // todo - better formula for mapping midi values?
-    amp_filter_note_velocity_depth.gain(filter_velocity_depth_cc_value / 127.0); // todo - better formula for mapping midi values?
+  float sum = filter_envelope_depth + filter_lfo_depth + filter_velocity_depth;
+  if (sum <= 1.0) {
+    dc_filter_envelope_depth.amplitude(filter_envelope_depth); 
+    amp_filter_lfo_depth.gain(filter_lfo_depth);               
+    amp_filter_note_velocity_depth.gain(filter_velocity_depth);
   } else {
-    dc_filter_envelope_depth.amplitude(filter_envelope_depth_cc_value / (float) sum); // todo - better formula for mapping midi values?
-    amp_filter_lfo_depth.gain(filter_lfo_depth_cc_value / (float) sum);                   // todo - better formula for mapping midi values?
-    amp_filter_note_velocity_depth.gain(filter_velocity_depth_cc_value / (float) sum); // todo - better formula for mapping midi values?
+    dc_filter_envelope_depth.amplitude(filter_envelope_depth / sum); 
+    amp_filter_lfo_depth.gain(filter_lfo_depth / sum);               
+    amp_filter_note_velocity_depth.gain(filter_velocity_depth / sum);
   }
 }
 
