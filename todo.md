@@ -15,7 +15,6 @@
 
 ## Medium Priority
 - [ ] second lfo
-- [ ] pitch bend
 - [ ] only listen to midi on one channel
 - [ ] midi channel learn
 - [ ] modulate filter cutoff with osc B
@@ -27,6 +26,7 @@
 - [ ] lfo option where each note on triggers a new random value and sustains it until the next note on 
 - [ ] send midi over usb to update web programmer
 - [ ] logical operator distortion - type and crossfade distortion amount
+- [x] pitch bend
 - [x] mod wheel to lfo depth
 - [x] note velocity to filter cutoff. cc for depth
 - [x] x-mod of oscillators
