@@ -44,9 +44,7 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 13: { // Cross Modulation
-        float cross_mod_depth = POWER[value] * MAX_CROSS_MODULATION_DEPTH;
-        mixer_osc_A_freq.gain(1, cross_mod_depth);
-        mixer_osc_B_freq.gain(2, cross_mod_depth);
+        mixer_osc_A_freq.gain(1, POWER[value] * MAX_CROSS_MODULATION_DEPTH);
       }
       break;
 
@@ -175,7 +173,7 @@ void myControlChange(byte channel, byte control, byte value) {
       break;
 
     case 61: // Note velocity to volume depth
-      note_velocity_to_volume_depth = log10(value / 127.0 * 9.0 + 1.0);
+      amp_volume_note_velocity_depth.gain(log10(value / 127.0 * 9.0 + 1.0));
       break;
   }
 }
