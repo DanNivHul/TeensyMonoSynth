@@ -1531,7 +1531,7 @@
     (property "Value" "R_Potentiometer" (at 40.64 26.67 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Potentiometer_THT:Potentiometer_Alps_RK09L_Single_Vertical" (at 38.1 25.4 0)
+    (property "Footprint" "teensy.pretty-master:Teensy30_31_32_LC" (at 38.1 25.4 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 38.1 25.4 0)
